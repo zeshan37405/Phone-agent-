@@ -1,0 +1,3 @@
+<resources>
+    <string name="acc_desc">Lets the assistant read the screen and tap on your behalf, only when you start a task.</string>
+</resources>
