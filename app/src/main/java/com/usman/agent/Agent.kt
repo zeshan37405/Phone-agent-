@@ -7,6 +7,7 @@ import org.json.JSONObject
 object Agent {
     @Volatile var running = false
     var onLog: (String) -> Unit = {}
+    var memory: String = ""
 
     // Financial apps are never touched.
     private val BLOCKED = listOf(
@@ -19,7 +20,7 @@ object Agent {
         RegexOption.IGNORE_CASE
     )
 
-    private fun isBlocked(s: String) = BLOCKED.any { s.lowercase().contains(it) }
+    fun isBlocked(s: String) = BLOCKED.any { s.lowercase().contains(it) }
 
     fun start(goal: String, key: String, model: String) {
         if (running) return
@@ -52,6 +53,7 @@ object Agent {
             val prompt = """
 You control an Android phone through accessibility. Goal from the user: "$goal"
 Current app: $pkg
+About the user (memory): $memory
 Screen elements (index, type, text):
 $screen
 Previous steps:
